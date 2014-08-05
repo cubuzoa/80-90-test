@@ -5,5 +5,5 @@ module.exports = function( mongoose ) {
         name: String,
         competitions: [Schema.Types.Mixed]
     });
-    mongoose.model( 'User', UserSchema );
+    return mongoose.model( 'User', UserSchema );
 }

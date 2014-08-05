@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css" />
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -53,19 +54,19 @@
 
       <div class="row">
             <div class="col-lg-12">
-                <img width="400" height="400" src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpa1/v/t1.0-9/1606869_707931402606511_2025776548991983712_n.jpg?oh=b1ef62663aae191cd3dade36691d9f89&oe=544AF491&__gda__=1413084332_ce4567e1c5e99f6bc5de9b372f553d91" alt="" class="img-thumbnail">
+                <img id="itemImg" width="400" height="400" src="" alt="" class="img-thumbnail">
             </div>
         </div>
         <div class="row">&nbsp;</div>
         <div class="row letters-available">
-            <div class="col-lg-12">
-                <span class="label label-primary f draggable">S</span>
-                <span class="label label-primary f draggable">U</span>
-                <span class="label label-primary f draggable">L</span>
-                <span class="label label-primary f draggable">U</span>
-                <span class="label label-primary f draggable">G</span>
-                <span class="label label-primary f draggable">Ö</span>
-                <span class="label label-primary f draggable">Z</span>
+            <div class="col-lg-12" id="availableWords">
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">&nbsp;</div>
+        <div class="row">&nbsp;</div>
+        <div class="row letters-result">
+            <div class="col-lg-12" id="resultWords">
             </div>
         </div>
         <div class="row">&nbsp;</div>
@@ -73,13 +74,7 @@
         <div class="row">&nbsp;</div>
         <div class="row letters-result">
             <div class="col-lg-12">
-                <div class="droppable fr">-</div>
-                <div class="droppable fr">-</div>
-                <div class="droppable fr">-</div>
-                <div class="droppable fr">-</div>
-                <div class="droppable fr">-</div>
-                <div class="droppable fr">-</div>
-                <div class="droppable fr">-</div>
+              <a href="javascript:;" class="btn btn-primary btn-lg" role="button" id="refresh-btn"><i class="fa fa-refresh fa-fw"></i> Refresh</a>
             </div>
         </div>
 

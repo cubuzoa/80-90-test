@@ -1,3 +1,4 @@
+var utils = require("../lib/utils.js");
 module.exports = function( app, mongoose ) {
     
     var User = mongoose.model( "User" );
@@ -9,7 +10,7 @@ module.exports = function( app, mongoose ) {
     
     app.post('/item/save', function(req, res, next) {
     	var itemModel = new Item(req.body);
-    	itemModel.save(function(err, res) {
+    	itemModel.save(function(err, item) {
     	    if (err) {
     	        res.json({
     	            type: false,
@@ -22,5 +23,22 @@ module.exports = function( app, mongoose ) {
     	        });
     	    }
     	})
+    });
+    
+    app.get('/item/random', function(req, res, next) {
+        Item.random(function(err, item) {
+           if (err) {
+               res.json({
+                   type: false,
+                   result: "Couldn't get item"
+               }); 
+           } else {
+               res.json({
+                   type: true,
+                   result: item,
+                   shuffled: utils.shuffleWord(item.name) 
+               });   
+           }
+        });
     });
 }
