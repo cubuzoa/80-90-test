@@ -41,4 +41,30 @@ module.exports = function( app, mongoose ) {
            }
         });
     });
+    
+    app.post('/item/check', function(req, res, next) {
+        var id = req.body.id;
+        var result = req.body.text;
+        
+        Item.findOne({_id: id, name: result}, function(err, item) {
+           if (err) {
+               res.json({
+                   type: false,
+                   result: "Couldn't check item"
+               }); 
+           } else {
+               if (!item) {
+                    res.json({
+                       type: false,
+                       result: "Yanlış"
+                   });     
+               } else {
+                    res.json({
+                       type: true,
+                       result: "Doğru"
+                   });    
+               }  
+           }
+        });
+    });
 }
