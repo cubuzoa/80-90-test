@@ -44,7 +44,6 @@ var Main = function ($) {
         initHowtoPlay: function() {
             $("#howto-play").on("click", function() {
                 var tour = new Tour({
-                    placement: 'top',
                     storage: false,
                     backdrop: true,
                     template: "<div class='popover tour'>" +
@@ -63,27 +62,32 @@ var Main = function ($) {
                     {
                         element: "#itemImg",
                         title: "Adım-1",
-                        content: "Resimdeki 80'ler ve 90'lara ait resimler göreceksiniz. Anılarınıza dönüp bulmaya çalışın."
+                        content: "Resimdeki 80'ler ve 90'lara ait resimler göreceksiniz. Anılarınıza dönüp bulmaya çalışın.",
+                        placement: 'top'
                     },
                     {
                         element: "#availableWords",
                         title: "Adım-2",
-                        content: "Buradaki kelimeleri kullanıp resmi tahmin etmeye çalışın."
+                        content: "Buradaki kelimeleri kullanıp resmi tahmin etmeye çalışın.",
+                        placement: 'top'
                     },
                     {
                         element: "#resultWords",
                         title: "Adım-3",
-                        content: "Resimdeki şeyin adını bu kısıma yerleştirin."
+                        content: "Resimdeki şeyin adını bu kısıma yerleştirin.",
+                        placement: 'top'
                     },
                     {
                         element: "#refresh-btn",
                         title: "Adım-4",
-                        content: "Doğru cevaptan sonra diğer resime geçebilirsiniz."
+                        content: "Doğru cevaptan sonra diğer resime geçebilirsiniz.",
+                        placement: 'top'
                     },
                     {
                         element: "#revert-btn",
                         title: "Adım-5",
-                        content: "Yerleştirdiğiniz harfleri geri almak için bu butonu kullanabilirsiniz."
+                        content: "Yerleştirdiğiniz harfleri geri almak için bu butonu kullanabilirsiniz.",
+                        placement: 'top'
                     }
                 ]});
                 
