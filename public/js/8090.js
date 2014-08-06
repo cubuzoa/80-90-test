@@ -4,6 +4,7 @@ var Main = function ($) {
         init: function () {
             Main.refreshItem();
             Main.initRefreshButton();
+            Main.initHowtoPlay();
         },
         initSourceClick: function() {
             $(".src").on("click", function() {
@@ -39,6 +40,56 @@ var Main = function ($) {
                 $(".letters-result").removeClass("answer-wrong").removeClass("answer-true");
                 Main.refreshItem();    
             });  
+        },
+        initHowtoPlay: function() {
+            $("#howto-play").on("click", function() {
+                var tour = new Tour({
+                    placement: 'top',
+                    storage: false,
+                    backdrop: true,
+                    template: "<div class='popover tour'>" +
+                            "<div class='arrow'></div>" +
+                            "<h3 class='popover-title'></h3>" +
+                            "<div class='popover-content'></div>" +
+                            "<div class='popover-navigation'>" +
+                                "<button class='btn btn-default' data-role='prev'>« Önceki</button>" +
+                                "<span data-role='separator'>&nbsp;</span>" +
+                                "<button class='btn btn-default' data-role='next'>Sonraki »</button>" +
+                            "</div>" +
+                            "<button class='btn btn-primary' data-role='end'>Oyuna Başla</button>" +
+                            "</nav>" +
+                          "</div>",
+                    steps: [
+                    {
+                        element: "#itemImg",
+                        title: "Adım-1",
+                        content: "Resimdeki 80'ler ve 90'lara ait resimler göreceksiniz. Anılarınıza dönüp bulmaya çalışın."
+                    },
+                    {
+                        element: "#availableWords",
+                        title: "Adım-2",
+                        content: "Buradaki kelimeleri kullanıp resmi tahmin etmeye çalışın."
+                    },
+                    {
+                        element: "#resultWords",
+                        title: "Adım-3",
+                        content: "Resimdeki şeyin adını bu kısıma yerleştirin."
+                    },
+                    {
+                        element: "#refresh-btn",
+                        title: "Adım-4",
+                        content: "Doğru cevaptan sonra diğer resime geçebilirsiniz."
+                    },
+                    {
+                        element: "#revert-btn",
+                        title: "Adım-5",
+                        content: "Yerleştirdiğiniz harfleri geri almak için bu butonu kullanabilirsiniz."
+                    }
+                ]});
+                
+                tour.init();
+                tour.start();    
+            });
         },
         checkResult: function() {
             if ($(".letter-not-added").size() > 0) {
