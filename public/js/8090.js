@@ -63,31 +63,31 @@ var Main = function ($) {
                         element: "#itemImg",
                         title: "Adım-1",
                         content: "Resimdeki 80'ler ve 90'lara ait resimler göreceksiniz. Anılarınıza dönüp bulmaya çalışın.",
-                        placement: 'top'
+                        placement: 'left'
                     },
                     {
                         element: "#availableWords",
                         title: "Adım-2",
                         content: "Buradaki kelimeleri kullanıp resmi tahmin etmeye çalışın.",
-                        placement: 'top'
+                        placement: 'left'
                     },
                     {
                         element: "#resultWords",
                         title: "Adım-3",
                         content: "Resimdeki şeyin adını bu kısıma yerleştirin.",
-                        placement: 'top'
+                        placement: 'left'
                     },
                     {
                         element: "#refresh-btn",
                         title: "Adım-4",
                         content: "Doğru cevaptan sonra diğer resime geçebilirsiniz.",
-                        placement: 'top'
+                        placement: 'left'
                     },
                     {
                         element: "#revert-btn",
                         title: "Adım-5",
                         content: "Yerleştirdiğiniz harfleri geri almak için bu butonu kullanabilirsiniz.",
-                        placement: 'top'
+                        placement: 'left'
                     }
                 ]});
                 
