@@ -58,6 +58,9 @@ var Main = function ($) {
                             "<button class='btn btn-primary' data-role='end'>Oyuna Başla</button>" +
                             "</nav>" +
                           "</div>",
+                    onEnd: function (tour) {
+                        Main.startTime();    
+                    },
                     steps: [
                     {
                         element: "#itemImg",
@@ -95,6 +98,9 @@ var Main = function ($) {
                 tour.start();    
             });
         },
+        startTime: function() {
+                    
+        },
         checkResult: function() {
             if ($(".letter-not-added").size() > 0) {
                 return false;
@@ -118,6 +124,7 @@ var Main = function ($) {
             });
         },
         refreshItem: function() {
+            $("#resultText").val("");
             $.ajax({
                url: "/item/random",
                type: "GET",
