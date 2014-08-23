@@ -3,24 +3,31 @@ var Main = function ($) {
     return {
         init: function () {
             Main.refreshItem();
-            Main.initRefreshButton();
             Main.initHowtoPlay();
         },
         initSourceClick: function() {
             $(".src").on("click", function() {
                 $(".letters-result").removeClass("answer-wrong").removeClass("answer-true");
                 var letter = $(this).text();
-                var lastSetLetter = $(".letter-added").last();
-                if (lastSetLetter.length > 0) {
-                    lastSetLetter.next().text(letter).attr("data-src", $(this).data("id")).addClass("letter-added").removeClass("letter-not-added");
-                } else {
-                    $(".dest").first().text(letter).attr("data-src", $(this).data("id")).addClass("letter-added").removeClass("letter-not-added");
-                }
+                var firstLetter = $(".letter-not-added").first();
+                firstLetter.text(letter).attr("data-src", $(this).data("id")).addClass("letter-added").removeClass("letter-not-added");
                 $(this).text("");
                 $("#resultText").val("" + $("#resultText").val() + letter);
-                $("#revert-btn").prop("disabled", false);
                 Main.checkResult();
             });    
+        },
+        initDestClick: function() {
+            $(".dest").on("click", function() {
+                if ($(this).attr("data-src").length > 0) {
+                    $('[data-id="' + $(this).attr("data-src") + '"]').text($(this).text());
+                    $(this).attr("data-src", "");
+                    $(this).text("-");
+                    $(this).removeClass("letter-added").addClass("letter-not-added")
+                    if ($("letter-added").length < 1) {
+                        $(".dest").removeClass("answer-true").removeClass("answer-wrong");
+                    }
+                }
+            });
         },
         initRevertLetters: function() {
             $("#revert-btn").on("click", function() {
@@ -36,11 +43,9 @@ var Main = function ($) {
                 $(".letters-result .dest").removeClass("answer-wrong").removeClass("answer-true");
             });
         },
-        initRefreshButton: function() {
-            $("#refresh-btn").on("click", function() {
-                $(".letters-result").removeClass("answer-wrong").removeClass("answer-true");
-                Main.refreshItem();    
-            });  
+        initRefresh: function() {
+            $(".letters-result").removeClass("answer-wrong").removeClass("answer-true");
+            Main.refreshItem();
         },
         initHowtoPlay: function() {
             $("#howto-play").on("click", function() {
@@ -108,20 +113,23 @@ var Main = function ($) {
             }  
             $("#revert-btn").prop("disabled", true);
             var itemId = $("#itemId").val();
-            var result = $("#resultText").val();
-            $.ajax({
-               url: "/item/check",
-               type: "POST",
-               data: {id: itemId, text: result},
-               success: function(response) {
-                    if (response.type) {
-                        $(".letters-result .dest").removeClass("answer-wrong").addClass("answer-true");
-                        $("#refresh-btn").prop("disabled", false); 
-                    } else {
-                        $(".letters-result .dest").removeClass("answer-true").addClass("answer-wrong");
-                        $("#revert-btn").prop("disabled", false);     
+            var result = "";
+            $(".letter-added").each(function() {
+                result += "" + $(this).text() + "";
+            }).promise().done(function() {
+                $.ajax({
+                    url: "/item/check",
+                    type: "POST",
+                    data: {id: itemId, text: result},
+                    success: function(response) {
+                        if (response.type) {
+                            $(".letters-result .dest").removeClass("answer-wrong").addClass("answer-true");
+                            Main.initRefresh();
+                        } else {
+                            $(".letters-result .dest").removeClass("answer-true").addClass("answer-wrong");
+                        }
                     }
-               }
+                });
             });
         },
         refreshItem: function() {
@@ -150,6 +158,7 @@ var Main = function ($) {
                    }
                    $("#resultWords").html(destHtml);
                    Main.initSourceClick();
+                   Main.initDestClick()
                    Main.initRevertLetters();
                    $("#refresh-btn").prop("disabled", true);
                }
