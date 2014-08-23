@@ -33,6 +33,7 @@ var Main = function ($) {
                 });
                 $("#resultText").val("");
                 $("#revert-btn").prop("disabled", true); 
+                $(".letters-result .dest").removeClass("answer-wrong").removeClass("answer-true");
             });
         },
         initRefreshButton: function() {
@@ -114,10 +115,10 @@ var Main = function ($) {
                data: {id: itemId, text: result},
                success: function(response) {
                     if (response.type) {
-                        $(".letters-result").removeClass("answer-wrong").addClass("answer-true");
+                        $(".letters-result .dest").removeClass("answer-wrong").addClass("answer-true");
                         $("#refresh-btn").prop("disabled", false); 
                     } else {
-                        $(".letters-result").removeClass("answer-true").addClass("answer-wrong");
+                        $(".letters-result .dest").removeClass("answer-true").addClass("answer-wrong");
                         $("#revert-btn").prop("disabled", false);     
                     }
                }
@@ -150,6 +151,7 @@ var Main = function ($) {
                    $("#resultWords").html(destHtml);
                    Main.initSourceClick();
                    Main.initRevertLetters();
+                   $("#refresh-btn").prop("disabled", true);
                }
             });
         }
