@@ -29,4 +29,4 @@ fs.readdirSync( controllerPath ).forEach( function ( file ) {
 });
 
 app.listen(process.env.PORT);	
-console.log('Magic happens on port 8080'); 
+console.log('Server started on port ' + process.env.PORT);
