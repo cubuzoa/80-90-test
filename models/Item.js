@@ -3,14 +3,14 @@ module.exports = function( mongoose ) {
 
     var ItemSchema = new Schema({
         name: String,
-        url: String,
+        url: String
     });
     
-    ItemSchema.statics.random = function(cb) {
-      this.count(function(err, count) {
+    ItemSchema.statics.random = function(excluded, cb) {
+      this.count({_id: {$nin: excluded}}, function(err, count) {
         if (err) return cb(err);
         var rand = Math.floor(Math.random() * count);
-        this.findOne().skip(rand).exec(cb);
+        this.find({_id: {$nin: excluded}}).skip(rand).limit(1).exec(cb);
       }.bind(this));
     };
     

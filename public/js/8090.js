@@ -113,6 +113,7 @@ var Main = function ($) {
             }  
             $("#revert-btn").prop("disabled", true);
             var itemId = $("#itemId").val();
+            var gameId = $("#gameId").val();
             var result = "";
             $(".letter-added").each(function() {
                 result += "" + $(this).text() + "";
@@ -120,11 +121,15 @@ var Main = function ($) {
                 $.ajax({
                     url: "/item/check",
                     type: "POST",
-                    data: {id: itemId, text: result},
+                    data: {id: itemId, text: result, gameId: gameId},
                     success: function(response) {
                         if (response.type) {
                             $(".letters-result .dest").removeClass("answer-wrong").addClass("answer-true");
-                            Main.initRefresh();
+                            if (response.redirect) {
+                                window.location = "/result/" + gameId;
+                            } else {
+                                Main.initRefresh();
+                            }
                         } else {
                             $(".letters-result .dest").removeClass("answer-true").addClass("answer-wrong");
                         }
@@ -135,7 +140,7 @@ var Main = function ($) {
         refreshItem: function() {
             $("#resultText").val("");
             $.ajax({
-               url: "/item/random",
+               url: "/item/random/" + $("#gameId").val(),
                type: "GET",
                success: function(response) {
                    $("#availableWords").empty();

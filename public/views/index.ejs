@@ -49,10 +49,12 @@
     </div>
 
     <div class="container">
-      <div class="row">
+     <%if (typeof gameId !== 'undefined') { %>
+        <div class="row">
             <div class="col-lg-6">
                 <input type="hidden" name="itemId" id="itemId" value=""/>
                 <input type="hidden" name="resultText" id="resultText" value=""/>
+                <input type="hidden" name="gameId" id="gameId" value="<%= gameId %>"/>
                 <img id="itemImg" width="300" height=300" src="" alt="" class="img-thumbnail">
             </div>
         </div>
@@ -67,6 +69,34 @@
             <div class="col-lg-6" id="resultWords">
             </div>
         </div>
+      <% } else if (typeof result !== 'undefined') { %>
+        <div class="row">
+            <div class="col-lg-12">
+            Tebrikler! Oyunu <%= duration %> saniyede bitirdiniz
+            </div>
+            <a href="https://twitter.com/intent/tweet?button_hashtag=100thbbs&text=Seksenler%20Doksanlar%20oyununu%20100%<%= duration %> sn.%20de%20bitirdim" class="twitter-hashtag-button" data-size="large" data-url="http://localhost:8000/result/<%= game._id %>">Sonucu Paylaş</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        </div>
+      <% } else {%>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>
+                    Oyun kuralları;
+                <ul>
+                    <li><strong>Başla</strong> butonuna basınca oyun ve süreniz başlar</li>
+                    <li>Ekrandaki resimlerin adını hemen altındaki harfleri kullanarak bulmaya çalışın</li>
+                    <li>15 tane resmi en kısa sürede tamamlamaya çalışın</li>
+                    <li>Bitince sonuçları ekranda greceksiniz. Dilerseniz twitter hesabınızda paylaşabilirsiniz</li>
+                </ul>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <a href="/game" class="btn btn-block btn-primary"><i class="fa fa-play fa-fw"></i> Başla</a>
+            </div>
+        </div>
+      <% } %>
 
     </div><!-- /.container -->
 
