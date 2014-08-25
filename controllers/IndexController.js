@@ -97,7 +97,7 @@ module.exports = function( app, mongoose ) {
                    });     
                } else {
                    Game.findOne({_id: gameId}, function(err, game) {
-                       if ( game.items.length == 2) {
+                       if ( game.items.length == 10) {
                            game.end = Date.now();
                            game.save(function(err, sGame) {
                               res.json({
