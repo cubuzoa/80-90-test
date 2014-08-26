@@ -8,24 +8,38 @@ module.exports = function( app, mongoose ) {
     	res.render("index");
     });
 
-    app.get('/game', function(req, res, next) {
+    app.get('/game-new', function(req, res, next) {
         var gameModel = new Game();
         gameModel.start = Date.now();
         gameModel.save(function(err, game) {
-            res.render('index', {
-                gameId: game._id
-            });
+            res.redirect('/game/' + game._id);
+        });
+    });
+
+    app.get('/game/:gameId', function(req, res, next) {
+        var gameId = req.params.gameId;
+        Game.findOne({_id: gameId}, function(err, game) {
+            if (game) {
+                res.render('index', {
+                    gameId: game._id
+                });
+            } else {
+                res.render('404');
+            }
         });
     });
 
     app.get('/result/:gameId', function(req, res, next) {
         Game.findOne({_id: req.params.gameId}, function(err, game) {
-            console.log(game.end - game.start);
-            res.render('index', {
-                result: true,
-                game: game,
-                duration: (game.end - game.start) / 1000
-            })
+            if (game) {
+                res.render('index', {
+                    result: true,
+                    game: game,
+                    duration: Math.floor((game.end - game.start) / 1000)
+                })
+            } else {
+                  res.render('404');
+            }
         })
     });
     
